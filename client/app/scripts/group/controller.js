@@ -3,7 +3,7 @@
 angular.module('Group')
   .controller('group', function ($scope) {
 
-    var MAX_NUMBER_TILES = 3;
+    var MAX_NUMBER_TILES = 4;
 
     $scope.worldTiles = [[]];
 
@@ -41,6 +41,29 @@ angular.module('Group')
       }
 
       changeWorldState(auxWorldTiles);
+    }
+
+    function checkNeighbour(rowPosition, colPosition) {
+      var rowLimits = getLimits(rowPosition);
+      var colLimits = getLimits(colPosition);
+
+      for (var i = rowLimits.startIndex; i < rowLimits.endIndex; i++) {
+        if(i === rowPosition){
+          continue;
+        }
+
+        for (var j = colLimits.startIndex; j < colLimits.endIndex; j++) {
+          if(j === colPosition){
+            continue;
+          }
+        }
+      }
+    }
+
+    function getLimits(positionInMatrix) {
+      var startIndex = positionInMatrix - 1 < 0 ? 0 : positionInMatrix - 1;
+      var endIndex = positionInMatrix + 1 > MAX_NUMBER_TILES - 1 ? MAX_NUMBER_TILES : positionInMatrix + 1;
+      return { startIndex: startIndex, endIndex: endIndex };
     }
 
     function copyArray(worldTiles) {

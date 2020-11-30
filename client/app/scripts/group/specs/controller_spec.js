@@ -13,16 +13,17 @@ describe('Controller: select group', function () {
   }));
 
   describe('On instance', function () {
-    it('should creates a world of 3x3', function () {
-      expect(scope.worldTiles.length).toEqual(3);
-      expect(scope.worldTiles[0].length).toEqual(3);
+    it('should creates a world of 4x4', function () {
+      expect(scope.worldTiles.length).toEqual(4);
+      expect(scope.worldTiles[0].length).toEqual(4);
     });
 
     it('should creates a world fill by 0', function () {
       expect(scope.worldTiles).toEqual([
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
       ]);
     });
 
@@ -33,9 +34,10 @@ describe('Controller: select group', function () {
     describe('when setWorldAndCellsConfiguration', function () {
       it('should creates a world with an Cell at 0x0 position', function () {
         var CONFIG_WORLD = [
-          [1, 0, 0],
-          [0, 0, 0],
-          [0, 0, 0]
+          [1, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0]
         ];
         scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
 
@@ -44,34 +46,65 @@ describe('Controller: select group', function () {
 
       it('should creates a history of the previous world', function () {
         var CONFIG_WORLD = [
-          [1, 0, 0],
-          [0, 0, 0],
-          [0, 0, 0]
+          [1, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0]
         ];
         scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
         expect(scope.worldTilesHistory[1]).toEqual([
-          [0, 0, 0],
-          [0, 0, 0],
-          [0, 0, 0]
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0]
         ]);
       });
     });
 
     it('should cell die because there are not neighbours', function () {
       var CONFIG_WORLD = [
-        [1, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
+        [1, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
       ];
       scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
       scope.runWorldIteration();
 
       expect(scope.worldTiles).toEqual([
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
       ]);
     });
+
+    it('should cells life because they are a BLOCK', function () {
+      var CONFIG_WORLD = [
+        [0, 0, 0, 0],
+        [0, 1, 1, 0],
+        [0, 1, 1, 0],
+        [0, 0, 0, 0]
+      ];
+      scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
+      scope.runWorldIteration();
+
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+    });
+
+    it('should cells life because they are a BLOCK', function () {
+      var CONFIG_WORLD = [
+        [0, 1, 0, 0],
+        [0, 1, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 0, 0]
+      ];
+      scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
+      scope.runWorldIteration();
+
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+    });
+
 
   });
 
