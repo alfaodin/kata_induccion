@@ -30,20 +30,25 @@ describe('Controller: select group', function () {
       expect(scope.worldTilesHistory.length).toEqual(1);
     });
 
-    describe('when setCellInPositon', function () {
+    describe('when setWorldAndCellsConfiguration', function () {
       it('should creates a world with an Cell at 0x0 position', function () {
-
-        scope.setCellInPositon();
-        
-        expect(scope.worldTiles).toEqual([
+        var CONFIG_WORLD = [
           [1, 0, 0],
           [0, 0, 0],
           [0, 0, 0]
-        ]);
+        ];
+        scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
+
+        expect(scope.worldTiles).toEqual(CONFIG_WORLD);
       });
-      
+
       it('should creates a history of the previous world', function () {
-        scope.setCellInPositon();
+        var CONFIG_WORLD = [
+          [1, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0]
+        ];
+        scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
         expect(scope.worldTilesHistory[1]).toEqual([
           [0, 0, 0],
           [0, 0, 0],
@@ -51,7 +56,23 @@ describe('Controller: select group', function () {
         ]);
       });
     });
-  
+
+    it('should cell die because there are not neighbours', function () {
+      var CONFIG_WORLD = [
+        [1, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+      ];
+      scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
+      scope.runWorldIteration();
+
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+      ]);
+    });
+
   });
 
 

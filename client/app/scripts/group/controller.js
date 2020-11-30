@@ -23,13 +23,28 @@ angular.module('Group')
       changeWorldState(auxWorldTiles);
     };
 
-    // (horizontalPosition, verticalPosition, cellState)
-    $scope.setCellInPositon = function () {
-      changeWorldState([
-        [1, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-      ]);
+    $scope.setWorldAndCellsConfiguration = function (worldConfig) {
+      changeWorldState(worldConfig);
+    }
+
+    $scope.runWorldIteration = function () {
+      checkIfCellLives();
+    }
+
+    function checkIfCellLives() {
+      var auxWorldTiles = copyArray($scope.worldTiles);
+      for (var i = 0; i < auxWorldTiles.length; i++) {
+        var element = auxWorldTiles[i];
+        for (var j = 0; j < element.length; j++) {
+          auxWorldTiles[i][j] = 0;
+        }
+      }
+
+      changeWorldState(auxWorldTiles);
+    }
+
+    function copyArray(worldTiles) {
+      return JSON.parse(JSON.stringify(worldTiles));
     }
 
     function changeWorldState(newWorldState) {
