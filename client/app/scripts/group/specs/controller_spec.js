@@ -17,14 +17,17 @@ describe('Controller: select group', function () {
       expect(scope.controller_loaded).toContain('loaded');
     });
     
-    fit('should return case 1', function () {
-      var result = scope.registro([1009 ,1017],[2011,2011]);
+    it('should return the sum two values', function () {
+      var result = scope.suma([1,3]);
+      expect(result).toEqual(4);
 
-      expect(result).toEqual([2011]);
+      result = scope.suma([2,3]);
+      expect(result).toEqual(5);
     });
     
     it('should return case 2', function () {
-      
+      var result = scope.suma([2,3,4]);
+      expect(result).toEqual(9);
     });
   });
 
