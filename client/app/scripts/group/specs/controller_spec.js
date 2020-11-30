@@ -13,23 +13,47 @@ describe('Controller: select group', function () {
   }));
 
   describe('On instance', function () {
-    it('should set "controller_loaded" variable in scope', function () {
-      expect(scope.controller_loaded).toContain('loaded');
+    it('should creates a world of 3x3', function () {
+      expect(scope.worldTiles.length).toEqual(3);
+      expect(scope.worldTiles[0].length).toEqual(3);
     });
-    
-    it('should return the sum two values', function () {
-      var result = scope.suma([1,3]);
-      expect(result).toEqual(4);
 
-      result = scope.suma([2,3]);
-      expect(result).toEqual(5);
+    it('should creates a world fill by 0', function () {
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+      ]);
     });
-    
-    it('should return case 2', function () {
-      var result = scope.suma([2,3,4]);
-      expect(result).toEqual(9);
+
+    it('should has a initial history 1', function () {
+      expect(scope.worldTilesHistory.length).toEqual(1);
     });
+
+    describe('when setCellInPositon', function () {
+      it('should creates a world with an Cell at 0x0 position', function () {
+
+        scope.setCellInPositon();
+        
+        expect(scope.worldTiles).toEqual([
+          [1, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0]
+        ]);
+      });
+      
+      it('should creates a history of the previous world', function () {
+        scope.setCellInPositon();
+        expect(scope.worldTilesHistory[1]).toEqual([
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0]
+        ]);
+      });
+    });
+  
   });
+
 
   describe('when going to /group', function () {
 
