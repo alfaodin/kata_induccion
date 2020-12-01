@@ -1,12 +1,34 @@
 <div class="world-main-content">
   <div class="header-container">
-    <br><a href="#/" class="kataFont">Home</a>
+    <nav class="nav-content">
+      <h1 class="game-tile">Game of Life</h1>
+      <a class="nav-link" href="#/" class="kataFont">Home</a>
+    </nav>
   </div>
 
-  <div class="world-content">
-    <div class="row-container" ng-repeat="rowCells in worldTiles" ng-init="parentIndex=$index">
-      <div class="col-container" ng-repeat="colCells in rowCells track by $index" ng-class="{'live': colCells === 1}">
-        {{parentIndex}} {{$index}}
+  <div class="game-life-container">
+    <!-- HISTORY -->
+    <div class="title-content history">
+      <h2>History</h2>
+      <div class="history-container">
+        <div class="history-item-content" ng-repeat="history in worldTilesHistory">
+          GENERATION: <em>{{$index}}</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORLD -->
+    <div class="title-content world">
+      <h2>World</h2>
+      <div class="world-content">
+        <div class="row-container" ng-repeat="rowCells in worldTiles">
+          <div class="col-container" ng-repeat="colCells in rowCells track by $index"
+            ng-class="{'live': colCells === 1}">
+            <div class="float-matrix-position">
+              {{$parent.$index}} {{$index}}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
