@@ -51,12 +51,10 @@ angular.module('Group')
     
     $scope.setCustomeConf = function () {
       var CONFIG_WORLD = [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 1, 0]
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0]
       ];
       $scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
     }

@@ -18,7 +18,7 @@ describe('Controller: select group', function () {
       var CONFIG_WORLD = [[]];
       expect(scope.worldTiles).toEqual(CONFIG_WORLD);
     });
-    
+
     it('should creates a world of 2x2', function () {
       var CONFIG_WORLD = [
         [1, 0],
@@ -35,7 +35,7 @@ describe('Controller: select group', function () {
         [1, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        [0, 0, 0, 0] 
+        [0, 0, 0, 0]
       ];
       scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
 
@@ -48,7 +48,7 @@ describe('Controller: select group', function () {
         [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        [0, 0, 0, 0] 
+        [0, 0, 0, 0]
       ];
       scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
 
@@ -60,7 +60,7 @@ describe('Controller: select group', function () {
         [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        [0, 0, 0, 0] 
+        [0, 0, 0, 0]
       ];
       scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
       expect(scope.worldTilesHistory.length).toEqual(1);
@@ -72,7 +72,7 @@ describe('Controller: select group', function () {
           [1, 0, 0, 0],
           [0, 0, 0, 0],
           [0, 0, 0, 0],
-          [0, 0, 0, 0] 
+          [0, 0, 0, 0]
         ];
         scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
 
@@ -165,7 +165,65 @@ describe('Controller: select group', function () {
       ]);
     });
 
-    it('should cells life because they are a GLITER', function () {
+    fit('should cells life because they are a GLITER after SIX iteration', function () {
+      var CONFIG_WORLD = [
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0]
+      ];
+      scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
+      
+      scope.runWorldIteration();
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0],
+        [1, 0, 1, 0],
+        [0, 1, 1, 0],
+        [0, 1, 0, 0]
+      ]);
+
+      scope.runWorldIteration();
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0],
+        [0, 0, 1, 0],
+        [1, 0, 1, 0],
+        [0, 1, 1, 0]
+      ]);
+
+      scope.runWorldIteration();
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 1, 1],
+        [0, 1, 1, 0]
+      ]);
+      
+      scope.runWorldIteration();
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1],
+        [0, 1, 1, 1]
+      ]);
+
+      scope.runWorldIteration();
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 1, 0, 1],
+        [0, 0, 1, 1]
+      ]);
+
+      scope.runWorldIteration();
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 1],
+        [0, 0, 1, 1]
+      ]);
+    });
+
+    it('should cells life because they are a custom OCILATOR', function () {
       var CONFIG_WORLD = [
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
@@ -181,12 +239,33 @@ describe('Controller: select group', function () {
         [0, 0, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0, 0],
         [0, 0, 0, 1, 1, 1],
         [0, 0, 0, 0, 0, 0]
       ]);
     });
 
+    it('should be like L after the firs iteration', function () {
+      var CONFIG_WORLD = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0, 0],
+        [0, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ];
+      scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
+      scope.runWorldIteration();
+
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ]);
+    });
   });
 
 
