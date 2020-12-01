@@ -14,13 +14,13 @@ angular.module('Group')
       resetWorldHistory();
       setWorldLimit(worldConfig);
       changeWorldState(worldConfig);
-    }
+    };
 
     $scope.runWorldIteration = function () {
       var auxWorldTiles = checkIfCellLives();
 
       changeWorldState(auxWorldTiles);
-    }
+    };
 
     $scope.setOnLyOneConf = function () {
       $scope.setWorldAndCellsConfiguration([
@@ -29,7 +29,7 @@ angular.module('Group')
         [0, 0, 0, 0],
         [0, 0, 0, 0]
       ]);
-    }
+    };
 
     $scope.setBlockConf = function () {
       $scope.setWorldAndCellsConfiguration([
@@ -38,7 +38,7 @@ angular.module('Group')
         [0, 1, 1, 0],
         [0, 0, 0, 0]
       ]);
-    }
+    };
 
     $scope.setOcilatorConf = function () {
       $scope.setWorldAndCellsConfiguration([
@@ -47,7 +47,7 @@ angular.module('Group')
         [0, 0, 0, 0],
         [0, 0, 0, 0]
       ]);
-    }
+    };
     
     $scope.setCustomeConf = function () {
       var CONFIG_WORLD = [
@@ -57,7 +57,7 @@ angular.module('Group')
         [0, 0, 0, 0]
       ];
       $scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
-    }
+    };
 
     function resetWorldHistory() {
       $scope.worldTilesHistory = [];

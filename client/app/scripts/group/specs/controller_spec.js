@@ -165,7 +165,7 @@ describe('Controller: select group', function () {
       ]);
     });
 
-    fit('should cells life because they are a GLITER after SIX iteration', function () {
+    it('should cells life because they are a GLITER after SIX iteration', function () {
       var CONFIG_WORLD = [
         [0, 1, 0, 0],
         [0, 0, 1, 0],
