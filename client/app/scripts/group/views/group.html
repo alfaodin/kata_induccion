@@ -1,10 +1,21 @@
-<h3>Group</h3>
-<br>
-<button ng-click='setOnLyOneConf()'>Generacion con una celuka</button>
-<button ng-click='setBlockConf()'>Generacion con un BLOCK</button>
-<button ng-click='setOcilatorConf()'>Generacion con un OCILATOR</button>
-<button ng-click='setCustomeConf()'>Generacion con un CUSTOME</button>
-<button ng-click='runWorldIteration()'>Nueva Generacion</button>
-<div>
-  <br><a href="#/" class="kataFont">Home</a>
+<div class="world-main-content">
+  <div class="header-container">
+    <br><a href="#/" class="kataFont">Home</a>
+  </div>
+
+  <div class="world-content">
+    <div class="row-container" ng-repeat="rowCells in worldTiles" track by $index>
+      <div class="col-container" ng-repeat="colCells in rowCells" track by colCells>
+        {{$index}}
+      </div>
+    </div>
+  </div>
+
+  <div class="actions-container">
+    <button ng-click='setOnLyOneConf()'>Generacion con una celuka</button>
+    <button ng-click='setBlockConf()'>Generacion con un BLOCK</button>
+    <button ng-click='setOcilatorConf()'>Generacion con un OCILATOR</button>
+    <button ng-click='setCustomeConf()'>Generacion con un CUSTOME</button>
+    <button ng-click='runWorldIteration()'>Nueva Generacion</button>
+  </div>
 </div>
