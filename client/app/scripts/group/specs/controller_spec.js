@@ -92,7 +92,7 @@ describe('Controller: select group', function () {
       expect(scope.worldTiles).toEqual(CONFIG_WORLD);
     });
 
-    it('should cells life because they are a BLOCK', function () {
+    it('should cells life because they are a OCILATOR', function () {
       var CONFIG_WORLD = [
         [0, 1, 0, 0],
         [0, 1, 0, 0],
@@ -102,7 +102,30 @@ describe('Controller: select group', function () {
       scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
       scope.runWorldIteration();
 
-      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ]);
+    });
+    
+    it('should cells life because they are a GLITER', function () {
+      var CONFIG_WORLD = [
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0]
+      ];
+      scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
+      scope.runWorldIteration();
+
+      expect(scope.worldTiles).toEqual([
+        [0, 0, 0, 0],
+        [1, 0, 1, 0],
+        [0, 1, 1, 0],
+        [0, 1, 0, 0]
+      ]);
     });
 
 

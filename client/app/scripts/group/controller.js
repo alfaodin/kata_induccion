@@ -31,12 +31,39 @@ angular.module('Group')
       checkIfCellLives();
     }
 
+    $scope.setOnLyOneConf = function () {
+      changeWorldState([
+        [1, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ]);
+    }
+
+    $scope.setBlockConf = function () {
+      changeWorldState([
+        [0, 0, 0, 0],
+        [0, 1, 1, 0],
+        [0, 1, 1, 0],
+        [0, 0, 0, 0]
+      ]);
+    }
+
+    $scope.setOcilatorConf = function () {
+      changeWorldState([
+        [0, 0, 0, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ]);
+    }
+
     function checkIfCellLives() {
       var auxWorldTiles = copyArray($scope.worldTiles);
       for (var i = 0; i < auxWorldTiles.length; i++) {
         var element = auxWorldTiles[i];
         for (var j = 0; j < element.length; j++) {
-          auxWorldTiles[i][j] = 0;
+          auxWorldTiles[i][j] = checkNeighbour(i, j);
         }
       }
 
@@ -47,22 +74,37 @@ angular.module('Group')
       var rowLimits = getLimits(rowPosition);
       var colLimits = getLimits(colPosition);
 
-      for (var i = rowLimits.startIndex; i < rowLimits.endIndex; i++) {
-        if(i === rowPosition){
-          continue;
-        }
+      var cellState = $scope.worldTiles[rowPosition][colPosition];
 
-        for (var j = colLimits.startIndex; j < colLimits.endIndex; j++) {
-          if(j === colPosition){
+      var totalNeighbourAlive = 0;
+      for (var i = rowLimits.startIndex; i <= rowLimits.endIndex; i++) {
+        for (var j = colLimits.startIndex; j <= colLimits.endIndex; j++) {
+          if (j === colPosition && i === rowPosition) {
             continue;
+          }
+          if ($scope.worldTiles[i][j] === 1) {
+            totalNeighbourAlive++;
           }
         }
       }
+
+      var newCellState = cellState;
+      if (cellState === 0) {
+        if (totalNeighbourAlive === 3) {
+          newCellState = 1;
+        }
+      } else {
+        if (totalNeighbourAlive < 2 || totalNeighbourAlive > 3) {
+          newCellState = 0;
+        }
+      }
+
+      return newCellState;
     }
 
     function getLimits(positionInMatrix) {
       var startIndex = positionInMatrix - 1 < 0 ? 0 : positionInMatrix - 1;
-      var endIndex = positionInMatrix + 1 > MAX_NUMBER_TILES - 1 ? MAX_NUMBER_TILES : positionInMatrix + 1;
+      var endIndex = positionInMatrix + 1 > MAX_NUMBER_TILES - 1 ? MAX_NUMBER_TILES -1: positionInMatrix + 1;
       return { startIndex: startIndex, endIndex: endIndex };
     }
 
@@ -77,6 +119,7 @@ angular.module('Group')
 
     function setCurrentWorldState(newWorldState) {
       $scope.worldTiles = newWorldState;
+      console.table(newWorldState);
     }
 
     function setWorldStateHistory(previousWorldState) {
