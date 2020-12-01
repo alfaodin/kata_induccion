@@ -4,9 +4,9 @@
   </div>
 
   <div class="world-content">
-    <div class="row-container" ng-repeat="rowCells in worldTiles" track by $index>
-      <div class="col-container" ng-repeat="colCells in rowCells" track by colCells>
-        {{$index}}
+    <div class="row-container" ng-repeat="rowCells in worldTiles" ng-init="parentIndex=$index">
+      <div class="col-container" ng-repeat="colCells in rowCells track by $index" ng-class="{'live': colCells === 1}">
+        {{parentIndex}} {{$index}}
       </div>
     </div>
   </div>
