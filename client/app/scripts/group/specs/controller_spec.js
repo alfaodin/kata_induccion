@@ -366,7 +366,7 @@ describe('Controller: select group', function () {
       expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_2);
     });
 
-    fit('should show the CURRENT ITERATION', function () {
+    it('should show the CURRENT ITERATION', function () {
       var CONFIG_WORLD_ITERATION_1 = [
         [0, 1, 0, 0],
         [0, 0, 1, 0],
@@ -386,8 +386,6 @@ describe('Controller: select group', function () {
       scope.runWorldIteration();
 
       scope.gotoSelectedWorldHistoryByIndex(0);
-
-      console.log(scope.worldTilesHistory.length)
 
       expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_1);
 
