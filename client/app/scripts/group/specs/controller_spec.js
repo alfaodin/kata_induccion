@@ -55,7 +55,7 @@ describe('Controller: select group', function () {
       expect(scope.worldTiles).toEqual(CONFIG_WORLD);
     });
 
-    it('should has a initial history 1', function () {
+    it('should has a initial history 0', function () {
       var CONFIG_WORLD = [
         [0, 0, 0, 0],
         [0, 0, 0, 0],
@@ -63,7 +63,7 @@ describe('Controller: select group', function () {
         [0, 0, 0, 0]
       ];
       scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
-      expect(scope.worldTilesHistory.length).toEqual(1);
+      expect(scope.worldTilesHistory.length).toEqual(0);
     });
 
     describe('when setWorldAndCellsConfiguration', function () {
@@ -89,7 +89,7 @@ describe('Controller: select group', function () {
         scope.setWorldAndCellsConfiguration(CONFIG_WORLD_ITERATION_1);
 
         scope.runWorldIteration();
-        expect(scope.worldTilesHistory[1]).toEqual([
+        expect(scope.worldTilesHistory[0]).toEqual([
           [1, 0, 0, 0],
           [0, 0, 0, 0],
           [0, 0, 0, 0],
@@ -359,10 +359,40 @@ describe('Controller: select group', function () {
       scope.runWorldIteration();
       expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_3);
 
-      expect(scope.worldTilesHistory.length).toEqual(3);
+      expect(scope.worldTilesHistory.length).toEqual(2);
 
-      scope.visitSelectedWorldHistoryByIndex(2);
+      scope.gotoSelectedWorldHistoryByIndex(1);
       
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_2);
+    });
+
+    fit('should show the CURRENT ITERATION', function () {
+      var CONFIG_WORLD_ITERATION_1 = [
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0]
+      ];
+      
+      var CONFIG_WORLD_ITERATION_2 = [
+        [0, 0, 0, 0],
+        [1, 0, 1, 0],
+        [0, 1, 1, 0],
+        [0, 1, 0, 0]
+      ];
+      
+      scope.setWorldAndCellsConfiguration(CONFIG_WORLD_ITERATION_1);
+
+      scope.runWorldIteration();
+
+      scope.gotoSelectedWorldHistoryByIndex(0);
+
+      console.log(scope.worldTilesHistory.length)
+
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_1);
+
+      scope.gotoCurrentWorldIteration();
+
       expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_2);
 
     });

@@ -8,15 +8,17 @@ angular.module('Group')
     var ROW_SIZE = 0;
     var COL_SIZE = 0;
 
+    var worldLastIteration;
+
     $scope.worldTiles = [[]];
     $scope.worldTilesHistory = [];
 
     init();
 
     $scope.setWorldAndCellsConfiguration = function (worldConfig) {
-      resetWorldHistory();
       setWorldLimit(worldConfig);
       changeWorldState(worldConfig);
+      resetWorldHistory();
     };
 
     $scope.runWorldIteration = function () {
@@ -51,7 +53,7 @@ angular.module('Group')
         [0, 0, 0, 0]
       ]);
     };
-    
+
     $scope.setCustomeConf = function () {
       var CONFIG_WORLD = [
         [0, 1, 0, 0],
@@ -61,24 +63,34 @@ angular.module('Group')
       ];
       $scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
     };
-    
-    $scope.changeCellStateAtPosition= function(rowPosition, colPosition){
-      var currentWorldTiles = copyArray($scope.worldTiles);
-      currentWorldTiles[rowPosition][colPosition] = currentWorldTiles[rowPosition][colPosition] === 0 ? 1 :0;
 
-      $scope.setWorldAndCellsConfiguration(currentWorldTiles);
+    $scope.changeCellStateAtPosition = function (rowPosition, colPosition) {
+      var currentWorldTiles = copyArray($scope.worldTiles);
+      currentWorldTiles[rowPosition][colPosition] = currentWorldTiles[rowPosition][colPosition] === 0 ? 1 : 0;
+
+      changeWorldState(currentWorldTiles);
     };
 
-    $scope.resetWorld = function(){
+    $scope.resetWorld = function () {
       createAnEmptyWorldOfSize($scope.DEFULT_WORLD_SIZE, $scope.DEFULT_WORLD_SIZE);
       resetWorldHistory();
     };
 
-    $scope.visitSelectedWorldHistoryByIndex = function(selectedWorldHistoryIndex){
-      changeWorldState($scope.worldTilesHistory[selectedWorldHistoryIndex]);
+    $scope.gotoSelectedWorldHistoryByIndex = function (selectedWorldHistoryIndex) {
+      if(!worldLastIteration){
+        worldLastIteration = $scope.worldTiles;
+      }
+      setCurrentWorldState($scope.worldTilesHistory[selectedWorldHistoryIndex]);
     };
 
-    function init(){
+    $scope.gotoCurrentWorldIteration = function () {
+      if (worldLastIteration) {
+        setCurrentWorldState(worldLastIteration);
+        worldLastIteration = null;
+      }
+    };
+
+    function init() {
       createAnEmptyWorldOfSize($scope.DEFULT_WORLD_SIZE, $scope.DEFULT_WORLD_SIZE);
     }
 
@@ -91,10 +103,12 @@ angular.module('Group')
         }
         auxWorldTiles.push(row);
       }
-      changeWorldState(auxWorldTiles);
+      setWorldLimit(auxWorldTiles);
+      setCurrentWorldState(auxWorldTiles);
     }
 
     function resetWorldHistory() {
+      worldLastIteration = null;
       $scope.worldTilesHistory = [];
     }
 
@@ -162,11 +176,12 @@ angular.module('Group')
 
     function setCurrentWorldState(newWorldState) {
       $scope.worldTiles = newWorldState;
-      console.table(newWorldState);
     }
 
     function setWorldStateHistory(previousWorldState) {
-      $scope.worldTilesHistory.push(previousWorldState);
+      if (previousWorldState && previousWorldState.length > 0) {
+        $scope.worldTilesHistory.push(previousWorldState);
+      }
     }
   })
   .config(function ($routeProvider) {
