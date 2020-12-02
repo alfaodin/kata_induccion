@@ -14,9 +14,9 @@ describe('Controller: select group', function () {
 
   describe('On instance', function () {
 
-    it('should creates an empty world', function () {
-      var CONFIG_WORLD = [[]];
-      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+    it('should creates an empty world with the DEFAULT SIZE', function () {
+      expect(scope.worldTiles.length).toEqual(scope.DEFULT_WORLD_SIZE);
+      expect(scope.worldTiles[0].length).toEqual(scope.DEFULT_WORLD_SIZE);
     });
 
     it('should creates a world of 2x2', function () {
@@ -173,7 +173,7 @@ describe('Controller: select group', function () {
         [0, 0, 0, 0]
       ];
       scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
-      
+
       scope.runWorldIteration();
       expect(scope.worldTiles).toEqual([
         [0, 0, 0, 0],
@@ -197,7 +197,7 @@ describe('Controller: select group', function () {
         [0, 0, 1, 1],
         [0, 1, 1, 0]
       ]);
-      
+
       scope.runWorldIteration();
       expect(scope.worldTiles).toEqual([
         [0, 0, 0, 0],
@@ -245,7 +245,7 @@ describe('Controller: select group', function () {
       ]);
     });
 
-    it('should be like L after the firs iteration', function () {
+    it('should be like L after the first iteration', function () {
       var CONFIG_WORLD = [
         [0, 0, 0, 0, 0, 0],
         [0, 1, 0, 1, 0, 0],
@@ -265,6 +265,68 @@ describe('Controller: select group', function () {
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0]
       ]);
+    });
+
+    it('should show a Matrix with only one Cell lived that is entered', function () {
+      var CONFIG_WORLD = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ];
+
+      scope.changeCellStateAtPosition(0,0);
+      CONFIG_WORLD[0][0] = 1;
+
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+
+      scope.changeCellStateAtPosition(0,0);
+      CONFIG_WORLD[0][0] = 0;
+
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+
+      scope.changeCellStateAtPosition(0,0);
+      scope.changeCellStateAtPosition(0,1);
+      scope.changeCellStateAtPosition(0,2);
+      CONFIG_WORLD[0][0] = 1;
+      CONFIG_WORLD[0][1] = 1;
+      CONFIG_WORLD[0][2] = 1;
+
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+
+    });
+
+    it('should show an empty Matrix after reset changes', function () {
+      var CONFIG_WORLD = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ];
+
+      scope.changeCellStateAtPosition(0,0);
+      CONFIG_WORLD[0][0] = 1;
+
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+
+      scope.resetWorld();
+      
+      CONFIG_WORLD[0][0] = 0;
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD);
+      
+      expect(scope.worldTilesHistory).toEqual([]);
     });
   });
 

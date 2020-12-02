@@ -2,13 +2,16 @@
 
 angular.module('Group')
   .controller('group', function ($scope) {
+    // TODO this constant must come from a factory
+    $scope.DEFULT_WORLD_SIZE = 10;
 
     var ROW_SIZE = 0;
     var COL_SIZE = 0;
 
     $scope.worldTiles = [[]];
-
     $scope.worldTilesHistory = [];
+
+    init();
 
     $scope.setWorldAndCellsConfiguration = function (worldConfig) {
       resetWorldHistory();
@@ -58,6 +61,34 @@ angular.module('Group')
       ];
       $scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
     };
+    
+    $scope.changeCellStateAtPosition= function(rowPosition, colPosition){
+      var currentWorldTiles = copyArray($scope.worldTiles);
+      currentWorldTiles[rowPosition][colPosition] = currentWorldTiles[rowPosition][colPosition] === 0 ? 1 :0;
+
+      $scope.setWorldAndCellsConfiguration(currentWorldTiles);
+    }
+
+    $scope.resetWorld = function(){
+      createAnEmptyWorldOfSize($scope.DEFULT_WORLD_SIZE, $scope.DEFULT_WORLD_SIZE);
+      resetWorldHistory();
+    }
+
+    function init(){
+      createAnEmptyWorldOfSize($scope.DEFULT_WORLD_SIZE, $scope.DEFULT_WORLD_SIZE);
+    }
+
+    function createAnEmptyWorldOfSize(rowSize, colSize) {
+      var auxWorldTiles = [];
+      for (var i = 0; i < rowSize; i++) {
+        var row = [];
+        for (var j = 0; j < colSize; j++) {
+          row.push(0);
+        }
+        auxWorldTiles.push(row);
+      }
+      changeWorldState(auxWorldTiles);
+    }
 
     function resetWorldHistory() {
       $scope.worldTilesHistory = [];

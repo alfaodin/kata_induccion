@@ -33,6 +33,10 @@
         <div class="world-title-actions-container">
           <h2>World</h2>
           <div class="world-actions-container">
+            <button ng-click='resetWorld()'>
+              <i class="fa fa-refresh"></i>
+              Reset World
+            </button>
             <button ng-click='runWorldIteration()'>
               <i class="fa fa-play"></i>
               Next Generation
@@ -46,7 +50,7 @@
         <div class="world-content">
           <div class="row-container" ng-repeat="rowCells in worldTiles">
             <div class="col-container" ng-repeat="colCells in rowCells track by $index"
-              ng-class="{'live': colCells === 1}">
+              ng-class="{'live': colCells === 1}" ng-click="changeCellStateAtPosition($parent.$index,$index)">
               <div class="float-matrix-position">
                 {{$parent.$index}} {{$index}}
               </div>
