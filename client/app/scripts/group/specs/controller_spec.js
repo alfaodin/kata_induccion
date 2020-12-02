@@ -328,8 +328,45 @@ describe('Controller: select group', function () {
       
       expect(scope.worldTilesHistory).toEqual([]);
     });
-  });
 
+    it('should show the selected HISTORY ITERATION', function () {
+      var CONFIG_WORLD_ITERATION_1 = [
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0]
+      ];
+      
+      var CONFIG_WORLD_ITERATION_2 = [
+        [0, 0, 0, 0],
+        [1, 0, 1, 0],
+        [0, 1, 1, 0],
+        [0, 1, 0, 0]
+      ];
+      
+      var CONFIG_WORLD_ITERATION_3 = [
+        [0, 0, 0, 0],
+        [0, 0, 1, 0],
+        [1, 0, 1, 0],
+        [0, 1, 1, 0]
+      ];
+
+      scope.setWorldAndCellsConfiguration(CONFIG_WORLD_ITERATION_1);
+
+      scope.runWorldIteration();
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_2);
+
+      scope.runWorldIteration();
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_3);
+
+      expect(scope.worldTilesHistory.length).toEqual(3);
+
+      scope.visitSelectedWorldHistoryByIndex(2);
+      
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_2);
+
+    });
+  });
 
   describe('when going to /group', function () {
 

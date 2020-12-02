@@ -18,15 +18,6 @@
           <button class="config-btn" ng-click='setCustomeConf()'>GLITER</button>
         </div>
       </div>
-      <!-- HISTORY -->
-      <div class="title-content history">
-        <h2>History</h2>
-        <div class="history-container">
-          <div class="history-item-content" ng-repeat="history in worldTilesHistory">
-            GENERATION: <em>{{$index}}</em>
-          </div>
-        </div>
-      </div>
 
       <!-- WORLD -->
       <div class="title-content world">
@@ -55,6 +46,16 @@
                 {{$parent.$index}} {{$index}}
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="title-content history">
+        <h2>History</h2>
+        <div class="history-container">
+          <div class="history-item-content" ng-repeat="history in worldTilesHistory track by $index" ng-click="visitSelectedWorldHistoryByIndex($index)">
+            GENERATION: <em>{{$index}}</em>
           </div>
         </div>
       </div>

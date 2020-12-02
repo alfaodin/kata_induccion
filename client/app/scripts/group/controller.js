@@ -67,12 +67,16 @@ angular.module('Group')
       currentWorldTiles[rowPosition][colPosition] = currentWorldTiles[rowPosition][colPosition] === 0 ? 1 :0;
 
       $scope.setWorldAndCellsConfiguration(currentWorldTiles);
-    }
+    };
 
     $scope.resetWorld = function(){
       createAnEmptyWorldOfSize($scope.DEFULT_WORLD_SIZE, $scope.DEFULT_WORLD_SIZE);
       resetWorldHistory();
-    }
+    };
+
+    $scope.visitSelectedWorldHistoryByIndex = function(selectedWorldHistoryIndex){
+      changeWorldState($scope.worldTilesHistory[selectedWorldHistoryIndex]);
+    };
 
     function init(){
       createAnEmptyWorldOfSize($scope.DEFULT_WORLD_SIZE, $scope.DEFULT_WORLD_SIZE);
