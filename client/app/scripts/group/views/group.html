@@ -6,38 +6,54 @@
     </nav>
   </div>
 
-  <div class="game-life-container">
-    <!-- HISTORY -->
-    <div class="title-content history">
-      <h2>History</h2>
-      <div class="history-container">
-        <div class="history-item-content" ng-repeat="history in worldTilesHistory">
-          GENERATION: <em>{{$index}}</em>
+  <div class="work-area-container">
+    <div class="game-life-container">
+      <!-- CONFIG OPTIONS -->
+      <div class="title-content">
+        <h2>Configs</h2>
+        <div class="config-actions-container">
+          <button class="config-btn" ng-click='setOnLyOneConf()'>One cell</button>
+          <button class="config-btn" ng-click='setBlockConf()'>BLOCK</button>
+          <button class="config-btn" ng-click='setOcilatorConf()'>OCILATOR</button>
+          <button class="config-btn" ng-click='setCustomeConf()'>GLITER</button>
         </div>
       </div>
-    </div>
+      <!-- HISTORY -->
+      <div class="title-content history">
+        <h2>History</h2>
+        <div class="history-container">
+          <div class="history-item-content" ng-repeat="history in worldTilesHistory">
+            GENERATION: <em>{{$index}}</em>
+          </div>
+        </div>
+      </div>
 
-    <!-- WORLD -->
-    <div class="title-content world">
-      <h2>World</h2>
-      <div class="world-content">
-        <div class="row-container" ng-repeat="rowCells in worldTiles">
-          <div class="col-container" ng-repeat="colCells in rowCells track by $index"
-            ng-class="{'live': colCells === 1}">
-            <div class="float-matrix-position">
-              {{$parent.$index}} {{$index}}
+      <!-- WORLD -->
+      <div class="title-content world">
+        <div class="world-title-actions-container">
+          <h2>World</h2>
+          <div class="world-actions-container">
+            <button ng-click='runWorldIteration()'>
+              <i class="fa fa-play"></i>
+              Next Generation
+            </button>
+            <button ng-click='runWorldIteration()'>
+              <i class="fa fa-spinner fa-spin"></i>
+              Auto Generation
+            </button>
+          </div> 
+        </div>
+        <div class="world-content">
+          <div class="row-container" ng-repeat="rowCells in worldTiles">
+            <div class="col-container" ng-repeat="colCells in rowCells track by $index"
+              ng-class="{'live': colCells === 1}">
+              <div class="float-matrix-position">
+                {{$parent.$index}} {{$index}}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="actions-container">
-    <button ng-click='setOnLyOneConf()'>Generacion con una celuka</button>
-    <button ng-click='setBlockConf()'>Generacion con un BLOCK</button>
-    <button ng-click='setOcilatorConf()'>Generacion con un OCILATOR</button>
-    <button ng-click='setCustomeConf()'>Generacion con un CUSTOME</button>
-    <button ng-click='runWorldIteration()'>Nueva Generacion</button>
   </div>
 </div>

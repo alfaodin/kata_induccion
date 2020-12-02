@@ -40,11 +40,18 @@ div.button{-webkit-appearance:button;-moz-appearance:button;appearance:button;pa
     color: black;
 }
 
-.game-life-container{
+.work-area-container{
     flex:1;
-    gap: 2rem;
-    width: 94%;
+    width: 100%;
     display: flex;
+    position: relative;
+}
+
+.game-life-container{
+    gap: 2rem;
+    width: 96%;
+    display: flex;
+    position: relative;
     margin: 1.5rem auto;
 }
 
@@ -63,6 +70,10 @@ div.button{-webkit-appearance:button;-moz-appearance:button;appearance:button;pa
 }
 
 .title-content.world{
+    flex: 1;
+}
+
+.title-content.world h2{
     flex: 1;
 }
 
@@ -85,11 +96,11 @@ div.button{-webkit-appearance:button;-moz-appearance:button;appearance:button;pa
     justify-content: center;
     font-size: .85rem;
     border-bottom: 2px solid black;
-    transition: transform .5s ease-out;
+    transition: all .5s ease-out;
 }
 
 .history-item-content:hover{
-    transform: translateX(-10px);
+    padding-left: 10px;
 }
 .history-item-content em{
     font-size: 1.5rem;
@@ -98,8 +109,8 @@ div.button{-webkit-appearance:button;-moz-appearance:button;appearance:button;pa
 .world-main-content{
     width: 100%;
     height: 100%;
-    overflow: hidden;
     display: flex;
+    overflow: hidden;
     flex-direction: column;
 }
 
@@ -141,4 +152,22 @@ div.button{-webkit-appearance:button;-moz-appearance:button;appearance:button;pa
 
 .col-container.live{
     background-color: greenyellow;
+}
+
+.config-actions-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: white;
+}
+
+.config-btn{
+    cursor: pointer;
+    padding: .5rem;
+}
+
+.world-title-actions-container{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
 }
