@@ -2,6 +2,7 @@
 
 describe('Controller: select group', function () {
 
+  beforeEach(module('App'));
   beforeEach(module('Group'));
 
   var controller;

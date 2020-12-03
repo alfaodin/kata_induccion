@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('Group')
-  .controller('group', function ($scope) {
+  .controller('group', function ($scope, _) {
     // TODO this constant must come from a factory
     $scope.DEFULT_WORLD_SIZE = 10;
 
@@ -96,6 +96,7 @@ angular.module('Group')
 
     function createAnEmptyWorldOfSize(rowSize, colSize) {
       var auxWorldTiles = [];
+
       for (var i = 0; i < rowSize; i++) {
         var row = [];
         for (var j = 0; j < colSize; j++) {
@@ -114,11 +115,11 @@ angular.module('Group')
 
     function checkIfCellLives() {
       var auxWorldTiles = copyArray($scope.worldTiles);
-      for (var i = 0; i < ROW_SIZE; i++) {
-        for (var j = 0; j < COL_SIZE; j++) {
-          auxWorldTiles[i][j] = checkNeighbour(i, j);
-        }
-      }
+      _.each(auxWorldTiles, function(rowArray, rowIndex) {
+        _.each(rowArray, function(colValue, colIndex) {
+            auxWorldTiles[rowIndex][colIndex] = checkNeighbour(rowIndex, colIndex);
+       })
+      });
       return auxWorldTiles;
     }
 
