@@ -32,8 +32,9 @@
               <i class="fa fa-step-forward"></i>
               Next Generation
             </button>
-            <button ng-click='runWorldIteration()'>
-              <i class="fa fa-play"></i>
+            <button ng-click='periodicallyRunWorldIteration()'>
+              <i class="fa"
+                ng-class="{'fa-spinner fa-spin': isIntervalTimerRunning, 'fa-play': !isIntervalTimerRunning}"></i>
               Auto Generation
             </button>
           </div> 
@@ -54,11 +55,12 @@
       <div class="title-content history">
         <h2>History <small>GENERATION {{worldTilesHistory.length}}</small></h2>
         <div class="history-container">
-          <div class="history-item-content" ng-repeat="history in worldTilesHistory track by $index" ng-click="gotoSelectedWorldHistoryByIndex($index)">
-            GENERATION: <em>{{$index}}</em>
-          </div>
           <div class="history-item-content" ng-click="gotoCurrentWorldIteration()" ng-if="worldTilesHistory.length > 0">
             CURRENT GENERATION
+          </div>
+          <div class="history-item-content" ng-repeat="history in worldTilesHistory track by $index"
+            ng-click="gotoSelectedWorldHistoryByIndex($index)">
+            GENERATION: <em>{{worldTilesHistory.length - ($index + 1)}}</em>
           </div>
         </div>
       </div>

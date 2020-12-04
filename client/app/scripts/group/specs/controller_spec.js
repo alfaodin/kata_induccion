@@ -364,7 +364,7 @@ describe('Controller: select group', function () {
 
       scope.gotoSelectedWorldHistoryByIndex(1);
       
-      expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_2);
+      expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_1);
     });
 
     it('should show the CURRENT ITERATION', function () {
@@ -395,25 +395,6 @@ describe('Controller: select group', function () {
       expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_2);
 
     });
-  
-    // it('should run periodicaly for 3 seconds the world ITERATION', function () {
-    //   var CONFIG_WORLD = [
-    //     [0, 1, 0, 0],
-    //     [0, 0, 1, 0],
-    //     [1, 1, 1, 0],
-    //     [0, 0, 0, 0]
-    //   ];
-    //   scope.setWorldAndCellsConfiguration(CONFIG_WORLD);
-
-    //   scope.periodicallyRunWorldIteration();
-      
-    //   expect(scope.worldTiles).toEqual([
-    //     [0, 0, 0, 0],
-    //     [0, 1, 0, 0],
-    //     [0, 0, 1, 1],
-    //     [0, 1, 1, 0]
-    //   ]);
-    // });
   
   });
 

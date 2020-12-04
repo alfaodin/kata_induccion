@@ -1,16 +1,18 @@
 'use strict';
 angular.module('Group')
-  .controller('group', function ($scope, _) {
+  .controller('group', function ($scope, $interval, _) {
     // TODO this constant must come from a factory
     $scope.DEFULT_WORLD_SIZE = 10;
 
     var ROW_SIZE = 0;
     var COL_SIZE = 0;
 
+    var intervalPromise;
     var worldLastIteration;
 
     $scope.worldTiles = [[]];
     $scope.worldTilesHistory = [];
+    $scope.isIntervalTimerRunning = false;
 
     init();
 
@@ -24,6 +26,17 @@ angular.module('Group')
       var auxWorldTiles = checkIfCellLives();
 
       changeWorldState(auxWorldTiles);
+    };
+
+    $scope.periodicallyRunWorldIteration = function () {
+      $scope.isIntervalTimerRunning = !$scope.isIntervalTimerRunning;
+      if (angular.isDefined(intervalPromise)) {
+        stopIntervalPromise();
+      } else {
+        intervalPromise = $interval(function () {
+          $scope.runWorldIteration();
+        }, 1000);
+      }
     };
 
     $scope.setOnLyOneConf = function () {
@@ -108,6 +121,14 @@ angular.module('Group')
     function resetWorldHistory() {
       worldLastIteration = null;
       $scope.worldTilesHistory = [];
+      resetInterval();
+    }
+
+    function resetInterval(){
+      $scope.isIntervalTimerRunning = false;
+      if (angular.isDefined(intervalPromise)) {
+        stopIntervalPromise();
+      }
     }
 
     function checkIfCellLives() {
@@ -175,7 +196,14 @@ angular.module('Group')
 
     function setWorldStateHistory(previousWorldState) {
       if (previousWorldState && previousWorldState.length > 0) {
-        $scope.worldTilesHistory.push(previousWorldState);
+        $scope.worldTilesHistory.unshift(previousWorldState);
+      }
+    }
+
+    function stopIntervalPromise (){
+      if (angular.isDefined(intervalPromise)) {
+        $interval.cancel(intervalPromise);
+        intervalPromise = undefined;
       }
     }
   })
