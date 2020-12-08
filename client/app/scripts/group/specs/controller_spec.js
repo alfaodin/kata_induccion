@@ -7,10 +7,13 @@ describe('Controller: select group', function () {
 
   var controller;
   var scope;
+  var callled_interval = 0;
 
   beforeEach(inject(function ($rootScope, $controller) {
     scope = $rootScope.$new();
+   
     controller = $controller('group', { $scope: scope });
+    
   }));
 
   describe('On instance', function () {
@@ -395,8 +398,30 @@ describe('Controller: select group', function () {
       expect(scope.worldTiles).toEqual(CONFIG_WORLD_ITERATION_2);
 
     });
+
+    it('should run automatic iteration', inject(function ($interval) {
+      spyOn(scope, 'runWorldIteration');
+      scope.periodicallyRunWorldIteration();
+
+      $interval.flush(3100);
   
+      expect(scope.runWorldIteration.calls.count()).toEqual(3);
+    }));
+
+
+    it('should clear the interval if the automatic iteration was runned', inject(function ($interval) {
+      spyOn(scope, 'runWorldIteration');
+      scope.periodicallyRunWorldIteration();
+      scope.periodicallyRunWorldIteration();
+
+      $interval.flush(3100);
+  
+      expect(scope.runWorldIteration.calls.count()).toEqual(0);
+    }));
+
+
   });
+
 
   describe('when going to /group', function () {
 
@@ -427,5 +452,4 @@ describe('Controller: select group', function () {
       expect(route.current.controller).toBe('group');
     });
   });
-
 });

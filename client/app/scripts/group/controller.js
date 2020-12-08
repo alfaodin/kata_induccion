@@ -29,14 +29,14 @@ angular.module('Group')
     };
 
     $scope.periodicallyRunWorldIteration = function () {
-      $scope.isIntervalTimerRunning = !$scope.isIntervalTimerRunning;
-      if (angular.isDefined(intervalPromise)) {
+      if ($scope.isIntervalTimerRunning) {
         stopIntervalPromise();
       } else {
         intervalPromise = $interval(function () {
           $scope.runWorldIteration();
         }, 1000);
       }
+      $scope.isIntervalTimerRunning = !$scope.isIntervalTimerRunning;
     };
 
     $scope.setOnLyOneConf = function () {
