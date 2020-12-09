@@ -12,10 +12,10 @@
       <div class="title-content">
         <h2>Configs</h2>
         <div class="config-actions-container">
-          <button class="config-btn" ng-click='setOnLyOneConf()'>One cell</button>
-          <button class="config-btn" ng-click='setBlockConf()'>BLOCK</button>
-          <button class="config-btn" ng-click='setOcilatorConf()'>OCILATOR</button>
-          <button class="config-btn" ng-click='setCustomeConf()'>GLITER</button>
+          <button id="one_cell_pre_config_btn" class="config-btn" ng-click='setOnLyOneConf()'>One cell</button>
+          <button id="block_pre_config_btn" class="config-btn" ng-click='setBlockConf()'>BLOCK</button>
+          <button id="ocilator_pre_config_btn" class="config-btn" ng-click='setOcilatorConf()'>OCILATOR</button>
+          <button id="glitter_pre_config_btn" class="config-btn" ng-click='setCustomeConf()'>GLITER</button>
         </div>
       </div>
 
@@ -24,15 +24,15 @@
         <div class="world-title-actions-container">
           <h2>World</h2>
           <div class="world-actions-container">
-            <button ng-click='resetWorld()'>
+            <button id="reset_world_btn" ng-click='resetWorld()'>
               <i class="fa fa-refresh"></i>
               Reset World
             </button>
-            <button ng-click='runWorldIteration()'>
+            <button id="next_generation_btn" ng-click='runWorldIteration()'>
               <i class="fa fa-step-forward"></i>
               Next Generation
             </button>
-            <button ng-click='periodicallyRunWorldIteration()'>
+            <button id="auto_generation_btn" ng-click='periodicallyRunWorldIteration()'>
               <i class="fa"
                 ng-class="{'fa-spinner fa-spin': isIntervalTimerRunning, 'fa-play': !isIntervalTimerRunning}"></i>
               Auto Generation
