@@ -25,6 +25,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude : [
+      '**/scripts/**/*_e2e.js',
     ],
 
     // level of logging

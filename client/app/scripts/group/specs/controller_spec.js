@@ -5,9 +5,8 @@ describe('Controller: select group', function () {
   beforeEach(module('App'));
   beforeEach(module('Group'));
 
-  var controller;
   var scope;
-  var callled_interval = 0;
+  var controller;
 
   beforeEach(inject(function ($rootScope, $controller) {
     scope = $rootScope.$new();

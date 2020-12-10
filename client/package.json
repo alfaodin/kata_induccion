@@ -8,7 +8,9 @@
     "url": "git@github.com:j0n4s/kata_mines.git"
   },
   "scripts": {
-    "test": "karma start"
+    "test": "grunt",
+    "test-karma": "karma start",
+    "test-e2e": "protractor confg.js"
   },
   "dependencies": {
     "underscore": "^1.12.0"

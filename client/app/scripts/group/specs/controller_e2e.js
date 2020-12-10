@@ -1,13 +1,15 @@
+'use strict';
+
 describe('game of life pre config cell', function () {
   it('should load the ONE cell configuration', function () {
     browser.get('http://localhost:3000/#/group');
 
     element(by.id('one_cell_pre_config_btn')).click();
 
-    let rowsContainer = element.all(by.css('.row-container'));
+    var rowsContainer = element.all(by.css('.row-container'));
     expect(rowsContainer.count()).toBe(4);
 
-    let colsContainer = element.all(by.css('.col-container'));
+    var colsContainer = element.all(by.css('.col-container'));
     expect(colsContainer.count()).toBe(16);
 
     var aliveCellsElement = element.all(by.className('live'));
@@ -19,10 +21,10 @@ describe('game of life pre config cell', function () {
 
     element(by.id('block_pre_config_btn')).click();
 
-    let rowsContainer = element.all(by.css('.row-container'));
+    var rowsContainer = element.all(by.css('.row-container'));
     expect(rowsContainer.count()).toBe(4);
 
-    let colsContainer = element.all(by.css('.col-container'));
+    var colsContainer = element.all(by.css('.col-container'));
     expect(colsContainer.count()).toBe(16);
 
     var aliveCellsElement = element.all(by.className('live'));
@@ -34,10 +36,10 @@ describe('game of life pre config cell', function () {
 
     element(by.id('ocilator_pre_config_btn')).click();
 
-    let rowsContainer = element.all(by.css('.row-container'));
+    var rowsContainer = element.all(by.css('.row-container'));
     expect(rowsContainer.count()).toBe(4);
 
-    let colsContainer = element.all(by.css('.col-container'));
+    var colsContainer = element.all(by.css('.col-container'));
     expect(colsContainer.count()).toBe(16);
 
     var aliveCellsElement = element.all(by.className('live'));
@@ -49,10 +51,10 @@ describe('game of life pre config cell', function () {
 
     element(by.id('glitter_pre_config_btn')).click();
 
-    let rowsContainer = element.all(by.css('.row-container'));
+    var rowsContainer = element.all(by.css('.row-container'));
     expect(rowsContainer.count()).toBe(4);
 
-    let colsContainer = element.all(by.css('.col-container'));
+    var colsContainer = element.all(by.css('.col-container'));
     expect(colsContainer.count()).toBe(16);
 
     var aliveCellsElement = element.all(by.className('live'));
@@ -64,10 +66,10 @@ describe('game of life user iteration', function () {
   it('should load empty board', function () {
     browser.get('http://localhost:3000/#/group');
 
-    let rowsContainer = element.all(by.css('.row-container'));
+    var rowsContainer = element.all(by.css('.row-container'));
     expect(rowsContainer.count()).toBe(10);
 
-    let colsContainer = element.all(by.css('.col-container'));
+    var colsContainer = element.all(by.css('.col-container'));
     expect(colsContainer.count()).toBe(100);
 
     var aliveCellsElement = element.all(by.className('live'));
@@ -138,7 +140,7 @@ describe('game of life user iteration', function () {
 describe('game of life use of History', function () {
   it('should have elements at the history after user interaction', function () {
     browser.get('http://localhost:3000/#/group');
-    
+
     element.all(by.className('col-container')).get(0).click();
     element.all(by.className('col-container')).get(1).click();
 
@@ -148,18 +150,18 @@ describe('game of life use of History', function () {
 
   it('should set an iteration of the history', function () {
     browser.get('http://localhost:3000/#/group');
-    
+
     element.all(by.className('col-container')).get(0).click();
     element.all(by.className('col-container')).get(1).click();
-    
+
     element.all(by.className('history-item-content')).get(1).click();
 
     var aliveCellsElement = element.all(by.className('live'));
     expect(aliveCellsElement.count()).toBe(1);
-    
+
     element.all(by.className('history-item-content')).get(2).click();
 
-    var aliveCellsElement = element.all(by.className('live'));
+    aliveCellsElement = element.all(by.className('live'));
     expect(aliveCellsElement.count()).toBe(0);
   });
 });
